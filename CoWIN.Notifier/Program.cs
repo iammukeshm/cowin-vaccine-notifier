@@ -78,7 +78,7 @@ namespace CoWIN.Notifier
             }
             if(!string.IsNullOrEmpty(dataDump))
             {
-                await CoWINService.Notify($"Vacinations Available at {distictData.GroupBy(a=>a.Id).Count()} centres in {distictData.Select(a=>a.District).FirstOrDefault()}.",dataDump, cowinConfiguration.IFTTT_ApiKey);
+                await CoWINService.Notify($"Vaccinations Available at {distictData.GroupBy(a=>a.Id).Count()} centres in {distictData.Select(a=>a.District).FirstOrDefault()}.",dataDump, cowinConfiguration.IFTTT_ApiKey);
             }
             Console.WriteLine(dataDump.Trim());
         }
