@@ -10,5 +10,6 @@ namespace CoWIN.Notifier.Models
     {
         public int IntervalInMinutes { get; set; }
         public int DistrictId { get; set; }
+        public string IFTTT_ApiKey { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace CoWIN.Notifier
         {
             Console.Clear();
             Console.WriteLine($"Pinging CoWIN API - {DateTime.Now}");
-            var dates = GetNextFiveDays();
+            var dates = GetNextTwoDays();
             var cowinResponses = new List<CoWINResponse>();
             foreach (var date in dates)
             {
@@ -70,18 +70,23 @@ namespace CoWIN.Notifier
                 DateTime = y.Key.DateTime,
                 Id = y.Key.Id
             });
-            var consoleMessage = string.Empty;
+            var dataDump = string.Empty;
+            var actualData = distictData.GroupBy(a => a.Id);
             foreach (var data in distictData.OrderBy(a => a.DateTime).Distinct().ToList())
             {
-                consoleMessage += $"{data.AvailableVaccines} vaccines available at {data.Name}, {data.District} , { data.State} on {data.DateTime.ToString("dd/MM/yyyy")}." + Environment.NewLine;
+                dataDump += $"{data.AvailableVaccines} vaccines available at {data.Name}, {data.District} , { data.State} on {data.DateTime.ToString("dd/MM/yyyy")}." + Environment.NewLine;
             }
-            Console.WriteLine(consoleMessage.Trim());
+            if(!string.IsNullOrEmpty(dataDump))
+            {
+                await CoWINService.Notify($"Vacinations Available at {distictData.GroupBy(a=>a.Id).Count()} centres in {distictData.Select(a=>a.District).FirstOrDefault()}.",dataDump, cowinConfiguration.IFTTT_ApiKey);
+            }
+            Console.WriteLine(dataDump.Trim());
         }
-        private static List<DateTime> GetNextFiveDays()
+        private static List<DateTime> GetNextTwoDays()
         {
             var dates = new List<DateTime>();
             var today = DateTime.Now.Date;
-            for (var dt = today; dt <= today.AddDays(5); dt = dt.AddDays(1))
+            for (var dt = today; dt <= today.AddDays(2); dt = dt.AddDays(1))
             {
                 dates.Add(dt);
             }
