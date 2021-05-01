@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoWIN.Notifier.Models
 {
-    public class CoWINReponse
+    public class CoWINResponse
     {
         public List<Center> centers { get; set; }
     }
