@@ -6,6 +6,8 @@ A Small POC Project that sends out a notification message on your Mobile Devices
  
  ![Event](https://codewithmukesh.com/wp-content/uploads/2021/05/WhatsApp-Image-2021-05-01-at-10.45.53-PM.jpeg)
   ![Event](https://codewithmukesh.com/wp-content/uploads/2021/05/WhatsApp-Image-2021-05-01-at-10.43.52-PM-1.jpeg)
+  
+   ![Event](https://codewithmukesh.com/wp-content/uploads/2021/05/VsDebugConsole_6hIwtsC33K.jpg)
 ## Setting up the Application
 
  - Install the IFTTT Application on to your mobile device.
