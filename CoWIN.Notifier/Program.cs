@@ -1,4 +1,5 @@
 ﻿using CoWIN.Notifier.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,17 @@ namespace CoWIN.Notifier
 {
     class Program
     {
+        public static CoWINConfiguration cowinConfiguration;
         static void Main(string[] args)
         {
-            var intervalInMinutes = 1;
+            IConfiguration Configuration = new ConfigurationBuilder()
+                        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .AddEnvironmentVariables()
+                        .AddCommandLine(args)
+                        .Build();
+            cowinConfiguration = new CoWINConfiguration();
+            Configuration.GetSection("CoWINConfiguration").Bind(cowinConfiguration);
+            var intervalInMinutes = cowinConfiguration.IntervalInMinutes < 5 ? 5 : cowinConfiguration.IntervalInMinutes;
             Timer timer = new Timer(StartCoWINNotifier, null, 0, intervalInMinutes * 60000);
             Console.WriteLine("Starting CoWIN Notifier. Press Enter to Exit.");
             Console.ReadLine();
@@ -23,7 +32,7 @@ namespace CoWIN.Notifier
             var cowinResponses = new List<CoWINResponse>();
             foreach (var date in dates)
             {
-                var data = await CoWINService.Ping(544, date);
+                var data = await CoWINService.Ping(cowinConfiguration.DistrictId, date);
                 if (data == null) continue;
                 if (data.centers.Count == 0) continue;
                 cowinResponses.Add(data);
@@ -66,7 +75,7 @@ namespace CoWIN.Notifier
             {
                 consoleMessage += $"{data.AvailableVaccines} vaccines available at {data.Name}, {data.District} , { data.State} on {data.DateTime.ToString("dd/MM/yyyy")}." + Environment.NewLine;
             }
-            Console.WriteLine(consoleMessage);
+            Console.WriteLine(consoleMessage.Trim());
         }
         private static List<DateTime> GetNextFiveDays()
         {
