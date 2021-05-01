@@ -61,10 +61,12 @@ namespace CoWIN.Notifier
                 DateTime = y.Key.DateTime,
                 Id = y.Key.Id
             });
+            var consoleMessage = string.Empty;
             foreach (var data in distictData.OrderBy(a => a.DateTime).Distinct().ToList())
             {
-                Console.WriteLine($"{data.AvailableVaccines} vaccines available at {data.Name}, {data.District} , { data.State} on {data.DateTime.ToString("dd/MM/yyyy")}.");
+                consoleMessage += $"{data.AvailableVaccines} vaccines available at {data.Name}, {data.District} , { data.State} on {data.DateTime.ToString("dd/MM/yyyy")}." + Environment.NewLine;
             }
+            Console.WriteLine(consoleMessage);
         }
         private static List<DateTime> GetNextFiveDays()
         {
