@@ -13,6 +13,8 @@ A Small POC Project that sends out a notification message on your Mobile Devices
  - Install the IFTTT Application on to your mobile device.
  - Configure IFTTT as mentioned in this [article](https://betterprogramming.pub/how-to-send-push-notifications-to-your-phone-from-any-script-6b70e34748f6).
  - Set the default trigger name of your new IFTTT applet as `vaccination-available`
+
+Quick Video of the setup - https://user-images.githubusercontent.com/31455818/116820335-1e7cc380-ab92-11eb-9d8d-a5ef5a29f2ba.mp4
  
  ![Event](https://codewithmukesh.com/wp-content/uploads/2021/05/chrome_MnXjYdBR14.jpg)
  - Replace `IFTTT_ApiKey`value in the `appsettings.json` file of the Console project to your API Key. 
